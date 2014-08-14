@@ -9,10 +9,11 @@
 		  />
 </head>
 <body>
-<script src="http://d3js.org/d3.v3.min.js"></script>
-<script src="http://d3js.org/d3.hexbin.v0.min.js?5c6e4f0"></script>
+<script src="assets/js/d3.v3.min.js"></script>
+<script src="assets/js/d3.hexbin.v0.min.js?5c6e4f0"></script>
+<script src="assets/js/hexes.js"></script>
 <script>
-
+/*
 var margin = {top: 20, right: 20, bottom: 30, left: 40};
 var width = 960 - margin.left - margin.right;
 var height = 500 - margin.top - margin.bottom;
@@ -28,7 +29,7 @@ var color = d3.scale.linear()
 
 var hexbin = d3.hexbin()
     .size([width, height])
-    .radius(10);
+    .radius(20);
 
 console.log(hexbin);
 
@@ -54,7 +55,7 @@ svg.append("g")
     .attr("d", hexbin.hexagon())
     .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
     .style("fill", function(d) { return color(d.length); });
-
+*/
 </script>
 </body>
 </html>
