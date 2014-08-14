@@ -2,19 +2,38 @@ body {
 	background-color: black
 }
 
-.axis text {
-  font: 10px sans-serif;
+/* Environment terrains */
+.terrain-water {
+	fill: url(#tile-water) royalblue;
+}
+.terrain-ocean {
+	fill: url(#tile-ocean) navy;
 }
 
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
+.terrain-sand {
+	fill: url(#tile-sand) yellow;
 }
 
-.hexagon {
-  fill: none;
-  stroke: red;
-  stroke-width: .5px;
+.terrain-grass {
+	fill: url(#tile-grass) lime;
+}
+.terrain-forest {
+	fill: url(#tile-forest) darkgreen;
+}
+
+.terrain-mountain {
+	fill: url(#tile-mountain) SaddleBrown;
+}
+.terrain-snow {
+	fill: url(#tile-snow) white;
+}
+.terrain-rock {
+	fill: url(#tile-rock) silver;
+}
+
+.terrain-lava {
+	fill: url(#tile-lava) red;
+}
+.terrain-creep {
+	fill: url(#tile-creep) purple;
 }

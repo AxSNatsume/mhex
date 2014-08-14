@@ -2,46 +2,46 @@
 
 var radius = 20;
 var grid = [
-    {x:1, y:1, c: 'green'}
-    , {x:2, y:1, c: 'green'}
-    , {x:3, y:1, c: 'yellow'}
+    {x:1, y:1, type: 'grass'}
+    , {x:2, y:1, type: 'grass'}
+    , {x:3, y:1, type: 'sand'}
 
-    , {x:1, y:2, c: 'green'}
-    , {x:2, y:2, c: 'yellow'}
-    , {x:3, y:2, c: 'red'}
+    , {x:1, y:2, type: 'grass'}
+    , {x:2, y:2, type: 'sand'}
+    , {x:3, y:2, type: 'lava'}
 
-    , {x:1, y:3, c: 'red'}
-    , {x:2, y:3, c: 'green'}
-    , {x:3, y:3, c: 'green'}
-    , {x:0, y:3, c: 'green'}
+    , {x:1, y:3, type: 'lava'}
+    , {x:2, y:3, type: 'grass'}
+    , {x:3, y:3, type: 'forest'}
+    , {x:0, y:3, type: 'grass'}
 
-	, {x:1, y:4} 
+	, {x:1, y:4, type: 'creep'}
 ];
 
 var lines = 20;
 var cols = 30;
 var grid = [];
 
-/* colors map for random colorization */
-var colors = [
-	'lime'
-	, 'royalblue'
-	, 'navy'
-	, 'yellow'
-	, 'silver'
-	, 'darkgreen'
-	, 'red'
-	, 'purple'
-	, 'SaddleBrown'
+var types = [
+	'water'
+	, 'ocean'
+	, 'sand'
+	, 'grass'
+	, 'forest'
+	, 'mountain'
+	, 'snow'
+	, 'rock'
+	, 'lava'
+	, 'creep'
 ];
 
 for (var line = 1; line <= lines; line++) {
 	for (var col = 1; col <= cols; col++) {
-		var color = Math.round(Math.random() * (colors.length -1));
+		var type = Math.round(Math.random() * (types.length -1));
 		grid.push({
 			x: col - Math.floor(0.5 * (line-1))
 			, y: line
-			, c: colors[color]
+			, type: types[type]
 		});
 	}
 }
@@ -80,8 +80,7 @@ var cellsAttributes = cells
 			+ ',' + (radius + (d.y -1) * 1.5*radius)
 			+ ')';
 	})
-    .style('fill', function(d) {
-		return d.c||'white'; 
-	})
-	.style('stroke', 'white')
-	.style('stroke-width', '1');
+	.attr('class', function(d) {return 'terrain-' + d.type;})
+	.style('stroke', 'black')
+	.style('stroke-width', 0.2)
+;
