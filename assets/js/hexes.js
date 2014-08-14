@@ -2,16 +2,16 @@
 
 var radius = 20;
 var grid = [
-    {x:1, y:1, r:1, c: 'green'}
-    , {x:2, y:1, r:0.5, c: 'green'}
-    , {x:3, y:1, r:1, c: 'yellow'}
-    , {x:1, y:2, r:0.8, c: 'green'}
-    , {x:2, y:2, r:1, c: 'yellow'}
-    , {x:3, y:2, r:1, c: 'red'}
-    , {x:1, y:3, r:1, c: 'red'}
-    , {x:2, y:3, r:1, c: 'green'}
-    , {x:3, y:3, r:1, c: 'green'}
-    , {x:0, y:3, r:1, c: 'green'}
+    {x:1, y:1, c: 'green'}
+    , {x:2, y:1, c: 'green'}
+    , {x:3, y:1, c: 'yellow'}
+    , {x:1, y:2, c: 'green'}
+    , {x:2, y:2, c: 'yellow'}
+    , {x:3, y:2, c: 'red'}
+    , {x:1, y:3, c: 'red'}
+    , {x:2, y:3, c: 'green'}
+    , {x:3, y:3, c: 'green'}
+    , {x:0, y:3, c: 'green'}
 ];
 
 var svgContainer = d3.select('body').append('svg')
@@ -29,6 +29,7 @@ var cells = svgContainer
 
 var cellsAttributes = cells
 	.attr('d', function(d) {
+		if (!d.r || d.r > 1) {d.r = 1;}
 		return 'M' + (d.r * radius * -1) + ' ' + (d.r * radius * -0.5)
 			+ 'L' + (d.r * radius * 0) + ' ' + (d.r * radius * -1)
 			+ 'L' + (d.r * radius * 1) + ' ' + (d.r * radius * -0.5)
