@@ -38,7 +38,6 @@ var colors = [
 for (var line = 1; line <= lines; line++) {
 	for (var col = 1; col <= cols; col++) {
 		var color = Math.round(Math.random() * (colors.length -1));
-		console.log(color);
 		grid.push({
 			x: col - Math.floor(0.5 * (line-1))
 			, y: line
