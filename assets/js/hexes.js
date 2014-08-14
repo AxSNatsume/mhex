@@ -54,6 +54,33 @@ var svgContainer = d3.select('body').append('svg')
     .attr('height', 610)
     //.style('border', '1px solid white');
 
+
+/* def:patterns */
+var defs = svgContainer.append('svg:defs');
+defs.append('svg:pattern')
+	.attr('id', 'tile-water')
+	.attr('patternUnits', 'userSpaceOnUse')
+	.attr('width', '100')
+	.attr('height', '100')
+	.append('circle')
+	.attr('cx', 10)
+	.attr('cy', 10)
+	.attr('r',10)
+	.style('stroke', 'none')
+	.style('fill', 'blue')
+
+/*
+	.append('svg:image')
+	.attr('xlink:href', 'assets/img/tile-water.png')
+	//.attr('xlink:href', 'http://sydenhamcurrent.ca/files/2014/05/14.-water-texture-100x100.jpg')
+	.attr('x', 0)
+	.attr('y', 0)
+	.attr('width', 100)
+	.attr('height', 100)
+/**/
+;
+
+/* cells */
 var cells = svgContainer
 	.append('g')
 	.selectAll('.cell')
@@ -83,4 +110,5 @@ var cellsAttributes = cells
 	.attr('class', function(d) {return 'terrain-' + d.type;})
 	.style('stroke', 'black')
 	.style('stroke-width', 0.2)
+	//.attr('fill', function(d) {return 'url(#tile-' + d.type + ')';})
 ;
