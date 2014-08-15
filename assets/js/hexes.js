@@ -29,7 +29,7 @@ var type_colors = {
 
 
 var radius = 30;
-var lines = 20;
+var lines = 15;
 var cols = 20;
 
 var grid = [
@@ -73,50 +73,19 @@ var svgContainer = d3.select('body').append('svg')
 
 /* def:patterns */
 var defs = svgContainer.append('svg:defs');
+for (var i in types) {
 defs.append('svg:pattern')
-  .attr('id', 'tile-water')
+  .attr('id', 'tile-' + types[i])
 	.attr('patternUnits', 'userSpaceOnUse')
 	.attr('width', '100')
 	.attr('height', '100')
   .append('svg:image')
-	.attr('xlink:href', 'assets/img/tile-water.png')
+	.attr('xlink:href', 'assets/img/tile-' + types[i] + '.png')
 	.attr('x', 0)
 	.attr('y', 0)
 	.attr('width', 100)
 	.attr('height', 100);
-defs.append('svg:pattern')
-  .attr('id', 'tile-ocean')
-	.attr('patternUnits', 'userSpaceOnUse')
-	.attr('width', '100')
-	.attr('height', '100')
-  .append('svg:image')
-	.attr('xlink:href', 'assets/img/tile-ocean.png')
-	.attr('x', 0)
-	.attr('y', 0)
-	.attr('width', 100)
-	.attr('height', 100);
-defs.append('svg:pattern')
-  .attr('id', 'tile-lava')
-	.attr('patternUnits', 'userSpaceOnUse')
-	.attr('width', '100')
-	.attr('height', '100')
-  .append('svg:image')
-	.attr('xlink:href', 'assets/img/tile-lava.png')
-	.attr('x', 0)
-	.attr('y', 0)
-	.attr('width', 100)
-	.attr('height', 100);
-defs.append('svg:pattern')
-  .attr('id', 'tile-sand')
-	.attr('patternUnits', 'userSpaceOnUse')
-	.attr('width', '100')
-	.attr('height', '100')
-  .append('svg:image')
-	.attr('xlink:href', 'assets/img/tile-sand.png')
-	.attr('x', 0)
-	.attr('y', 0)
-	.attr('width', 100)
-	.attr('height', 100);
+}
 
 /* cells */
 var cells = svgContainer
