@@ -1,9 +1,40 @@
 // Sample from https://www.dashingd3js.com/table-of-contents
 
-var radius = 20;
+
+var types = [
+	'water'
+	, 'ocean'
+	, 'sand'
+	, 'grass'
+	, 'forest'
+	, 'mountain'
+	, 'snow'
+	, 'rock'
+	, 'lava'
+	, 'creep'
+];
+
+var type_colors = {
+	water: 'royalblue'
+	, ocean: 'navy'
+	, sand: 'yellow'
+	, grass: 'lime'
+	, forest: 'darkgreen'
+	, mountain: 'SaddleBrown'
+	, snow: 'white'
+	, rock: 'silver'
+	, lava: 'red'
+	, creep: 'purple'
+};
+
+
+var radius = 30;
+var lines = 20;
+var cols = 20;
+
 var grid = [
     {x:1, y:1, type: 'grass'}
-    , {x:2, y:1, type: 'grass'}
+    , {x:2, y:1, type: 'water'}
     , {x:3, y:1, type: 'sand'}
 
     , {x:1, y:2, type: 'grass'}
@@ -18,22 +49,7 @@ var grid = [
 	, {x:1, y:4, type: 'creep'}
 ];
 
-var lines = 20;
-var cols = 30;
 var grid = [];
-
-var types = [
-	'water'
-	, 'ocean'
-	, 'sand'
-	, 'grass'
-	, 'forest'
-	, 'mountain'
-	, 'snow'
-	, 'rock'
-	, 'lava'
-	, 'creep'
-];
 
 for (var line = 1; line <= lines; line++) {
 	for (var col = 1; col <= cols; col++) {
@@ -50,35 +66,57 @@ for (var line = 1; line <= lines; line++) {
 
 
 var svgContainer = d3.select('body').append('svg')
-    .attr('width', 1220)
-    .attr('height', 610)
-    //.style('border', '1px solid white');
+    .attr('width', (2*cols+1)*radius)
+    .attr('height', (line/2*3-1)*radius)
+    .style('border', '1px solid white');
 
 
 /* def:patterns */
 var defs = svgContainer.append('svg:defs');
 defs.append('svg:pattern')
-	.attr('id', 'tile-water')
+  .attr('id', 'tile-water')
 	.attr('patternUnits', 'userSpaceOnUse')
 	.attr('width', '100')
 	.attr('height', '100')
-	.append('circle')
-	.attr('cx', 10)
-	.attr('cy', 10)
-	.attr('r',10)
-	.style('stroke', 'none')
-	.style('fill', 'blue')
-
-/*
-	.append('svg:image')
+  .append('svg:image')
 	.attr('xlink:href', 'assets/img/tile-water.png')
-	//.attr('xlink:href', 'http://sydenhamcurrent.ca/files/2014/05/14.-water-texture-100x100.jpg')
 	.attr('x', 0)
 	.attr('y', 0)
 	.attr('width', 100)
-	.attr('height', 100)
-/**/
-;
+	.attr('height', 100);
+defs.append('svg:pattern')
+  .attr('id', 'tile-ocean')
+	.attr('patternUnits', 'userSpaceOnUse')
+	.attr('width', '100')
+	.attr('height', '100')
+  .append('svg:image')
+	.attr('xlink:href', 'assets/img/tile-ocean.png')
+	.attr('x', 0)
+	.attr('y', 0)
+	.attr('width', 100)
+	.attr('height', 100);
+defs.append('svg:pattern')
+  .attr('id', 'tile-lava')
+	.attr('patternUnits', 'userSpaceOnUse')
+	.attr('width', '100')
+	.attr('height', '100')
+  .append('svg:image')
+	.attr('xlink:href', 'assets/img/tile-lava.png')
+	.attr('x', 0)
+	.attr('y', 0)
+	.attr('width', 100)
+	.attr('height', 100);
+defs.append('svg:pattern')
+  .attr('id', 'tile-sand')
+	.attr('patternUnits', 'userSpaceOnUse')
+	.attr('width', '100')
+	.attr('height', '100')
+  .append('svg:image')
+	.attr('xlink:href', 'assets/img/tile-sand.png')
+	.attr('x', 0)
+	.attr('y', 0)
+	.attr('width', 100)
+	.attr('height', 100);
 
 /* cells */
 var cells = svgContainer
@@ -92,23 +130,26 @@ var cells = svgContainer
 var cellsAttributes = cells
 	.attr('d', function(d) {
 		if (!d.r || d.r > 1) {d.r = 1;}
-		return 'M' + (d.r * radius * -1) + ' ' + (d.r * radius * -0.5)
-			+ 'L' + (d.r * radius * 0) + ' ' + (d.r * radius * -1)
-			+ 'L' + (d.r * radius * 1) + ' ' + (d.r * radius * -0.5)
-			+ 'L' + (d.r * radius * 1) + ' ' + (d.r * radius * 0.5)
-			+ 'L' + (d.r * radius * 0) + ' ' + (d.r * radius * 1)
-			+ 'L' + (d.r * radius * -1) + ' ' + (d.r * radius * 0.5)
+		return 'M' + (d.r * radius * 1) + ' ' + (d.r * radius * 0)
+			+ 'L' + (d.r * radius * 2) + ' ' + (d.r * radius * 0.5)
+			+ 'L' + (d.r * radius * 2) + ' ' + (d.r * radius * 1.5)
+			+ 'L' + (d.r * radius * 1) + ' ' + (d.r * radius * 2)
+			+ 'L' + (d.r * radius * 0) + ' ' + (d.r * radius * 1.5)
+			+ 'L' + (d.r * radius * 0) + ' ' + (d.r * radius * 0.5)
 			+ 'Z'
 		;
 	})
 	.attr('transform', function(d) {
 		return 'translate'
-			+ ' (' + (radius + (d.x -1) * 2*radius + radius*(d.y -1))
-			+ ',' + (radius + (d.y -1) * 1.5*radius)
+			+ ' (' + ((d.x -1) * 2*radius + radius*(d.y -1))
+			+ ',' + ((d.y -1) * 1.5*radius)
 			+ ')';
 	})
 	.attr('class', function(d) {return 'terrain-' + d.type;})
 	.style('stroke', 'black')
 	.style('stroke-width', 0.2)
-	//.attr('fill', function(d) {return 'url(#tile-' + d.type + ')';})
+	.style('fill', function(d) {
+		return 'url(#tile-' + d.type + ') ' + type_colors[d.type];
+	})
+	//.attr('onMouseOver', 
 ;
