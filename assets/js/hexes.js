@@ -151,5 +151,15 @@ var cellsAttributes = cells
 	.style('fill', function(d) {
 		return 'url(#tile-' + d.type + ') ' + type_colors[d.type];
 	})
-	//.attr('onMouseOver', 
+	.on('mouseover', function(d,i) {
+		d3.select(this)
+			.style('fill', type_colors[d.type]);
+	})
+	.on('mouseout', function(d) {
+		d3.select(this)
+			.style('fill', 'url(#tile-' + d.type + ') ' + type_colors[d.type]);
+	})
+	.on('click', function(d) {
+		console.log(this, d);
+	})
 ;
